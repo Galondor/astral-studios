@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <h1 className="Countdown">{remainingTime.days} : {remainingTime.hours} : {remainingTime.minutes} : {remainingTime.seconds}</h1>
         <p className="Countdown_text">To Release</p>
       </div>
+      <Analytics />
     </body>
   );
 }
