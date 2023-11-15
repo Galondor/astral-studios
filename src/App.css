@@ -34,3 +34,11 @@ body {
   font-size: 96px;
   text-shadow: 0 0 1px #fff, 0 0 5px #fff, 0 0 5px #fff, 0 0 40px #FCFBF4, 0 0 10px #FCFBF4, 0 0 10px #FCFBF4, 0 0 10px #FCFBF4, 0 0 1px #FCFBF4;
 }
+
+.Password {
+  margin: 48px;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 12px;
+  color: #242424;
+}
