@@ -17,7 +17,7 @@ function App() {
       responseType: "blob"
     }).then((res)=> {
       console.log(res);
-      FileDownload(res.data,"AstralOdyssey.exe")
+      FileDownload(res.data,"AstralOdyssey.zip")
     })
   }
 
