@@ -11,7 +11,7 @@ function App() {
   const download=(e)=>{
     e.preventDefault();
     Axios({
-      url: "http://localhost:4000",
+      url: "https://file-server-app-dusky.vercel.app",
       method: "GET",
       responseType: "blob"
     }).then((res)=> {
