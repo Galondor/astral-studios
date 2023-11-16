@@ -54,7 +54,7 @@ function App() {
         <input className="Password" type="text" value={code} onChange={handleCodeChange} onKeyDown={(event) => {
           if (event.key === 'Enter') {
             const accessCode = process.env.REACT_APP_ACCESS_KEY;
-            if (code === "1") {
+            if (code === accessCode) {
               alert('Correct!');
               download(event);
               setCode('');
