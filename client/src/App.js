@@ -53,16 +53,16 @@ function App() {
         <p className="Countdown_text">To Release</p>
         <input className="Password" type="text" value={code} onChange={handleCodeChange} onKeyDown={(event) => {
           if (event.key === 'Enter') {
-            switch (code) {
-              case process.env.ACCESES_KEY:
-                alert('Correct!');
-                download(event);
-                setCode('');
-                break;
-              default:
-                alert('Incorrect!');
-                setCode('');
-                break;
+            const accessCode = process.env.REACT_APP_ACCESS_KEY;
+            if (code === accessCode) {
+              alert('Correct!');
+              download(event);
+              setCode('');
+              return;
+            } else {
+              alert('Incorrect!');
+              setCode('');
+              return;
             }
           }
         }} />
