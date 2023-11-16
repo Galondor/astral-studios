@@ -1,11 +1,24 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import Axios from 'axios';
+import FileDownload from "js-file-download";
 
 
 function App() {
   const [remainingTime, setRemainingTime] = useState({});
   const [code, setCode] = useState('');
+  const download=(e)=>{
+    e.preventDefault();
+    Axios({
+      url: "http://localhost:4000",
+      method: "GET",
+      responseType: "blob"
+    }).then((res)=> {
+      console.log(res);
+      FileDownload(res.data,"AstralOdyssey.exe")
+    })
+  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -32,20 +45,6 @@ function App() {
   const handleCodeChange = (event) => {
     setCode(event.target.value);
   };
-  fetch('/Astral Odyssey/AstralOdyssey.exe')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const contentType = 'application/octet-stream';
-      return response.blob();
-    })
-    .then(blob => {
-      // ...
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
-    });
 
   return (
     <body>
@@ -55,8 +54,9 @@ function App() {
         <input className="Password" type="text" value={code} onChange={handleCodeChange} onKeyDown={(event) => {
           if (event.key === 'Enter') {
             switch (code) {
-              case 'AstralOdysseyPreAlphaV0.3.7.0release':
+              case process.env.ACCESES_KEY:
                 alert('Correct!');
+                download(event);
                 setCode('');
                 break;
               default:
