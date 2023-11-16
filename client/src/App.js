@@ -14,7 +14,7 @@ function App() {
     Axios({
       url: server,
       method: "GET",
-      responseType: "blob"
+      responseType: "arraybuffer" // or responseType: "blob"
     }).then((res)=> {
       console.log(res);
       FileDownload(res.data,"AstralOdyssey.exe")
