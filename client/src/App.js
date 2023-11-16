@@ -8,10 +8,11 @@ import FileDownload from "js-file-download";
 function App() {
   const [remainingTime, setRemainingTime] = useState({});
   const [code, setCode] = useState('');
+  const server = process.env.REACT_APP_SERVER_URL;
   const download=(e)=>{
     e.preventDefault();
     Axios({
-      url: "https://file-server-app-dusky.vercel.app",
+      url: server,
       method: "GET",
       responseType: "blob"
     }).then((res)=> {
