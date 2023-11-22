@@ -7,6 +7,7 @@ import FileDownload from "js-file-download";
 
 function App() {
   const [remainingTime, setRemainingTime] = useState({});
+  const [remainingTime2, setRemainingTime2] = useState({});
   const [code, setCode] = useState('');
   const server = process.env.REACT_APP_SERVER_URL;
   const download=(e)=>{
@@ -25,7 +26,9 @@ function App() {
     const intervalId = setInterval(() => {
       const now = new Date();
       const targetDate = new Date('December 17, 2023 13:00:00 EST');
+      const targetDate2 = new Date('December 4, 2023 19:00:00 EST');
       const timeDiff = targetDate - now;
+      const timeDiff2 = targetDate2 - now;
 
       if (timeDiff <= 0) {
         clearInterval(intervalId);
@@ -38,10 +41,23 @@ function App() {
 
         setRemainingTime({ days, hours, minutes, seconds });
       }
+
+      if (timeDiff2 <= 0) {
+        clearInterval(intervalId);
+        setRemainingTime2({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      } else {
+        const days = Math.floor(timeDiff2 / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff2 / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((timeDiff2 / 1000 / 60) % 60);
+        const seconds = Math.floor((timeDiff2 / 1000) % 60);
+
+        setRemainingTime2({ days, hours, minutes, seconds });
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
+
 
   const handleCodeChange = (event) => {
     setCode(event.target.value);
@@ -52,6 +68,8 @@ function App() {
       <div className="App">
         <h1 className="Countdown">{remainingTime.days} : {remainingTime.hours} : {remainingTime.minutes} : {remainingTime.seconds}</h1>
         <p className="Countdown_text">To Release</p>
+        <h1 className="Countdown">{remainingTime2.days} : {remainingTime2.hours} : {remainingTime2.minutes} : {remainingTime2.seconds}</h1>
+        <p className="Countdown_text">To Closed Beta</p>
         <input className="Password" type="text" value={code} onChange={handleCodeChange} onKeyDown={(event) => {
           if (event.key === 'Enter') {
             const accessCode = process.env.REACT_APP_ACCESS_KEY;
