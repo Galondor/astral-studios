@@ -1,26 +1,12 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
-import Axios from 'axios';
-import FileDownload from "js-file-download";
 
 
 function App() {
   const [remainingTime, setRemainingTime] = useState({});
   const [remainingTime2, setRemainingTime2] = useState({});
   const [code, setCode] = useState('');
-  const server = process.env.REACT_APP_SERVER_URL;
-  const download=(e)=>{
-    e.preventDefault();
-    Axios({
-      url: server,
-      method: "GET",
-      responseType: "arraybuffer" // or responseType: "blob"
-    }).then((res)=> {
-      console.log(res);
-      FileDownload(res.data,"AstralOdyssey.exe")
-    })
-  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -70,21 +56,27 @@ function App() {
         <p className="Countdown_text">To Release</p>
         <h1 className="Countdown">{remainingTime2.days} : {remainingTime2.hours} : {remainingTime2.minutes} : {remainingTime2.seconds}</h1>
         <p className="Countdown_text">To Closed Beta</p>
-        <input className="Password" type="text" value={code} onChange={handleCodeChange} onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            const accessCode = process.env.REACT_APP_ACCESS_KEY;
-            if (code === accessCode) {
-              alert('Correct!');
-              download(event);
-              setCode('');
-              return;
-            } else {
-              alert('Incorrect!');
-              setCode('');
-              return;
+        <input
+          className="Password"
+          type="text"
+          value={code}
+          onChange={handleCodeChange}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              const accessCode = process.env.REACT_APP_ACCESS_KEY;
+              if (code === accessCode) {
+                alert('Correct!');
+                window.open(`${process.env.REACT_APP_GAME_LINK}`, '_blank');
+                setCode('');
+                return;
+              } else {
+                alert('Incorrect!');
+                setCode('');
+                return;
+              }
             }
-          }
-        }} />
+          }}
+        />
       </div>
       <Analytics />
     </body>
